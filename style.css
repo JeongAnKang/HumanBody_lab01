@@ -1,0 +1,333 @@
+/* style.css (최종 완성본) */
+
+:root {
+    /* 눈이 편안한 웜 톤(Warm Tone) 팔레트 */
+    --bg-color: #FFF5F5;        /* 아주 연한 피치 핑크 (전체 배경) */
+    --card-bg: #FFFFFF;         /* 깨끗한 흰색 (카드 바탕) */
+    
+    --color-coral: #FF8FAB;     /* 메인 코랄 핑크 */
+    --color-coral-light: #FFC2D1; /* 연한 코랄 */
+    --color-mint: #82D1D9;      /* 산뜻한 민트 (버튼 등 포인트) */
+    
+    --text-main: #5C4D4D;       /* 다크 브라운 (눈 피로 감소) */
+    --text-sub: #9C8989;        /* 부드러운 회갈색 */
+    
+    /* 붕 떠오르는 듯한 부드러운 그림자 */
+    --shadow-soft: 0 12px 36px rgba(255, 143, 171, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /* 태블릿 터치 시 텍스트 선택 방지 및 파란 깜빡임 제거 */
+    user-select: none;
+    -webkit-tap-highlight-color: transparent; 
+}
+
+body {
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+    background: url('images/HB_main_01.png') center/cover no-repeat;
+    color: var(--text-main);
+    height: 100vh;       /* 구형 기기용 대비책 */
+    height: 100dvh;      /* 주소창 높이를 제외한 '진짜' 화면 높이를 계산 */
+    overflow: hidden; /* 태블릿 튕김 현상 방지 */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 상단 로고 바 */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--color-coral);
+    letter-spacing: -0.5px;
+}
+
+.btn-ghost {
+    background: none;
+    border: 2px solid var(--color-coral-light);
+    color: var(--color-coral);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-ghost:active {
+    background: var(--color-coral-light);
+    color: white;
+}
+
+/* 메인 대시보드 레이아웃 (태블릿 가로 6:4 분할) */
+.dashboard {
+    display: flex;
+    gap: 24px;
+    padding: 0 40px 40px 40px;
+    flex: 1;
+    height: calc(100vh - 75px);  /* 구형 기기용 대비책 */
+    height: calc(100dvh - 75px); /* 상단 바 높이(75px)를 뺀 나머지 진짜 영역 */
+}
+
+/* 공통 카드 스타일 */
+.card {
+   반투명 유리 효과 적용 */
+    background-color: rgba(255, 255, 255, 0.7); /* 70% 불투명한 흰색 */
+    backdrop-filter: blur(12px);         /* 배경을 부드럽게 뭉개줌 */
+    -webkit-backdrop-filter: blur(12px); /* 아이패드/사파리 지원 */
+
+    border-radius: 32px; 
+    box-shadow: var(--shadow-soft);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.card-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-sub);
+}
+
+.card-header-text {
+    margin-bottom: 24px;
+}
+
+/* 왼쪽: 인체 탐험 지도 */
+.map-card {
+    flex: 6;
+    position: relative;
+}
+/* ====================================================
+   인체 탐험 지도 (비율에 맞춰 스스로 줄어드는 반응형 원형 궤도)
+   ==================================================== */
+
+.map-area {
+    flex: 1;
+    background-color: transparent; /* 배경 이미지가 보이도록 투명 유지 */
+    border-radius: 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    
+    /* 🔥 마법의 반응형 변수: 화면 폭(vw)에 맞춰 최소~최대치 사이에서 스스로 조절됩니다 */
+    --radius: clamp(110px, 20vw, 170px);       /* 궤도 반지름 (기존 170px) */
+    --bubble-size: clamp(75px, 10vw, 105px);   /* 퀘스트 버블 크기 (기존 105px) */
+}
+
+/* 원형 궤도 컨테이너 */
+.quest-circle-container {
+    position: relative;
+    /* 고정 px 대신 변수를 곱해서 자동으로 궤도 크기를 결정 */
+    width: calc(var(--radius) * 2);  
+    height: calc(var(--radius) * 2);
+    border-radius: 50%;
+    border: 3px dashed var(--color-coral-light); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 중앙 인체 일러스트 영역 */
+.center-illustration {
+    width: calc(var(--radius) * 0.85);
+    height: calc(var(--radius) * 0.85);
+    background-color: rgba(255, 255, 255, 0.7); /* 반투명 흰색 */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(var(--radius) * 0.4); /* 이모지/로고 크기도 반응형 */
+    box-shadow: 0 8px 24px rgba(255, 143, 171, 0.2);
+    z-index: 10;
+}
+
+/* 퀘스트 비눗방울 기본 설정 */
+.quest-bubble {
+    position: absolute; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--bubble-size);
+    height: var(--bubble-size);
+    background-color: var(--card-bg);
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 800;
+    /* 글자 크기도 버블이 작아지면 같이 줄어들도록 clamp 적용 */
+    font-size: clamp(0.85rem, 1.5vw, 1.1rem); 
+    border-radius: 50%;
+    box-shadow: 0 8px 20px rgba(92, 77, 77, 0.08);
+    border: 4px solid var(--color-coral-light);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s, border-color 0.3s;
+}
+
+/* 
+ * 60도 간격 원형 배치 공식 
+ * (고정된 170px 대신 var(--radius)를 사용하여 궤도 크기에 맞게 자동으로 위치 이동!)
+ */
+.q1 { transform: rotate(-90deg) translate(var(--radius)) rotate(90deg); }   
+.q2 { transform: rotate(-30deg) translate(var(--radius)) rotate(30deg); }   
+.q3 { transform: rotate(30deg) translate(var(--radius)) rotate(-30deg); }   
+.q4 { transform: rotate(90deg) translate(var(--radius)) rotate(-90deg); }   
+.q5 { transform: rotate(150deg) translate(var(--radius)) rotate(-150deg); } 
+.q6 { transform: rotate(210deg) translate(var(--radius)) rotate(-210deg); } 
+
+/* 터치 시 눌리는 쫀득한 효과 */
+.q1:active { transform: rotate(-90deg) translate(var(--radius)) rotate(90deg) scale(0.9); }
+.q2:active { transform: rotate(-30deg) translate(var(--radius)) rotate(30deg) scale(0.9); }
+.q3:active { transform: rotate(30deg) translate(var(--radius)) rotate(-30deg) scale(0.9); }
+.q4:active { transform: rotate(90deg) translate(var(--radius)) rotate(-90deg) scale(0.9); }
+.q5:active { transform: rotate(150deg) translate(var(--radius)) rotate(-150deg) scale(0.9); }
+.q6:active { transform: rotate(210deg) translate(var(--radius)) rotate(-210deg) scale(0.9); }
+
+/* ====================================================
+   진행 상태 표시 CSS (Active & Completed)
+   ==================================================== */
+
+/* 현재 진행해야 할 퀘스트 (두근거리는 코랄 핑크) */
+.quest-bubble.active {
+    background-color: var(--color-coral);
+    color: white;
+    border-color: var(--color-coral);
+    animation: pulse-coral 2s infinite cubic-bezier(0.66, 0, 0, 1);
+    z-index: 5; /* 궤도 위에서 가장 눈에 띄게 */
+}
+
+/* 이미 완료한 퀘스트 (차분하고 살짝 투명하게) */
+.quest-bubble.completed {
+    background-color: var(--bg-color);
+    border-color: var(--text-sub);
+    color: var(--text-sub);
+    opacity: 0.7;
+}
+
+/* 코랄 핑크 파동 애니메이션 */
+@keyframes pulse-coral {
+    0% { 
+        box-shadow: 0 0 0 0 rgba(255, 143, 171, 0.7); 
+    }
+    70% { 
+        box-shadow: 0 0 0 15px rgba(255, 143, 171, 0); 
+    }
+    100% { 
+        box-shadow: 0 0 0 0 rgba(255, 143, 171, 0); 
+    }
+}
+
+/* 오른쪽: 보상 상자 */
+.reward-card {
+    flex: 4;
+}
+
+.reward-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.ticket-badge {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.count-highlight {
+    color: var(--color-coral);
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-left: 6px;
+}
+
+/* 메인 뽑기 버튼 (민트색 포인트) */
+.btn-primary {
+    width: 100%;
+    background-color: var(--color-mint);
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 800;
+    padding: 20px;
+    border: none;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(130, 209, 217, 0.45);
+    transition: all 0.2s;
+}
+
+.btn-primary:active {
+    transform: translateY(4px);
+    box-shadow: 0 4px 10px rgba(130, 209, 217, 0.45);
+}
+
+.btn-primary:disabled {
+    background-color: #EAE3E3;
+    color: var(--text-sub);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 보상 그리드 영역 */
+.reward-grid {
+    flex: 1;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 16px;
+    align-content: start;
+    padding-right: 8px; /* 스크롤바 여백 */
+}
+
+/* 스크롤바 커스텀 (둥글고 귀엽게) */
+.reward-grid::-webkit-scrollbar {
+    width: 8px;
+}
+.reward-grid::-webkit-scrollbar-thumb {
+    background-color: var(--color-coral-light);
+    border-radius: 10px;
+}
+
+.reward-slot {
+    width: 100%;
+    aspect-ratio: 1;
+    background-color: var(--bg-color);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px dashed var(--color-coral-light);
+}
+
+.reward-item {
+    width: 75%;
+    height: 75%;
+    object-fit: contain;
+    animation: popBounce 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 보상 등장 애니메이션 */
+@keyframes popBounce {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}

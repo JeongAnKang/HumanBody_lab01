@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>영양소 카드</title>
+<style>
+    /* A4 용지 및 10mm 여백 설정 */
+    @page {
+        size: A4 portrait;
+        margin: 10mm;
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Malgun Gothic", "맑은 고딕", dotum, sans-serif;
+        background-color: #fff;
+        -webkit-print-color-adjust: exact;
+    }
+
+    /* 1페이지(A4) 기준 크기 및 4x3 배열 설정 */
+    .page {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        width: 190mm; /* A4 가로 210mm - 양옆 여백 20mm */
+        height: 277mm; /* A4 세로 297mm - 위아래 여백 20mm */
+        page-break-after: always;
+        border-top: 1px dashed #666;
+        border-left: 1px dashed #666;
+        box-sizing: border-box;
+    }
+
+    /* 마지막 페이지 뒤에는 여백 띄우지 않음 */
+    .page:last-child {
+        page-break-after: auto;
+    }
+
+    /* 개별 카드 디자인 */
+    .card {
+        border-right: 1px dashed #666;
+        border-bottom: 1px dashed #666;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        text-align: center;
+        font-size: 18pt; /* 가독성을 위한 글자 크기 */
+        font-weight: bold;
+        line-height: 1.4;
+        word-break: keep-all; /* 단어 단위로 줄바꿈 */
+        box-sizing: border-box;
+    }
+    
+    /* 화면에서 미리보기 좋게 가운데 정렬 (인쇄 시에는 영향 없음) */
+    @media screen {
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .page {
+            background-color: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    }
+</style>
+</head>
+<body>
+
+    <!-- 첫 번째 페이지 -->
+    <div class="page">
+        <div class="card">주로 에너지원으로<br>이용된다.</div>
+        <div class="card">에너지원으로<br>이용된다.</div>
+        <div class="card">땅콩, 깨, 버터, 참기름<br>등에 많이 들어 있다.</div>
+        <div class="card">뼈와 이 등 몸을 구성하거나<br>생명활동을 조절한다.</div>
+        <div class="card">포도당, 엿당, 설탕, 녹말<br>등이 있다.</div>
+        <div class="card">살코기, 생선, 달걀, 두부,<br>콩 등에 많이 들어 있다.</div>
+        <div class="card">적은 양으로<br>생명활동을 조절한다.</div>
+        <div class="card">대부분 체내에서 합성할 수<br>없으므로 음식물을 통해<br>섭취해야 한다.</div>
+        <div class="card">밥, 국수, 빵, 감자, 고구마<br>등에 많이 들어 있다.</div>
+        <div class="card">몸을 구성하며,<br>에너지원으로 이용된다.</div>
+        <div class="card">대부분 체내에서 합성할 수<br>없으므로 음식물을 통해<br>섭취해야 한다.</div>
+        <div class="card">칼슘, 칼륨, 나트륨, 철,<br>마그네슘 등이 있다.</div>
+    </div>
+
+    <!-- 두 번째 페이지 -->
+    <div class="page">
+        <div class="card">주로 몸을 구성하고<br>생명활동을 조절한다.</div>
+        <div class="card">피부 아래에 저장된 지방층은<br>체온을 유지하는데<br>중요한 역할을 한다.</div>
+        <div class="card">과일, 채소 등에<br>많이 들어 있다.</div>
+        <div class="card">멸치, 다시마, 우유, 치즈,<br>버섯 등에 많이 들어 있다.</div>
+        <div class="card">몸의 구성 성분 중<br>가장 많다.</div>
+        <div class="card">단백질</div>
+        <div class="card">물</div>
+        <div class="card">여러 가지 물질을<br>운반한다.</div>
+        <div class="card">지방</div>
+        <div class="card">체온을 조절하는 데<br>도움을 준다.</div>
+        <div class="card">바이타민</div>
+        <div class="card">탄수화물</div>
+    </div>
+
+    <!-- 세 번째 페이지 -->
+    <div class="page">
+        <div class="card">무기염류</div>
+        <!-- 빈 칸 유지 -->
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+    </div>
+
+</body>
+</html>

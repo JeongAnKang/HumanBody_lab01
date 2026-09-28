@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <!-- 태블릿 터치 최적화: 확대 방지 및 쫀득한 조작감 확보 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>사람 몸 안내도</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 상단 로고 및 초기화 바 -->
+    <header class="top-bar">
+        <div class="logo">🧬 사람 몸 안내도</div>
+        <button id="btn-reset" class="btn-ghost">기록 초기화 ↺</button>
+    </header>
+
+    <main class="dashboard">
+        <!-- 왼쪽: 인체 탐험 지도 -->
+        <section class="card map-card">
+            <div class="card-header-text">
+                <h2 class="card-title">인체 탐험 지도</h2>
+                <p class="card-subtitle">안내도를 중심으로 둥글게 모인 퀘스트를 시작하세요.</p>
+            </div>
+            
+            <div class="map-area">
+                <!-- 궤도를 그리는 원형 컨테이너 -->
+                <div class="quest-circle-container">
+                    
+                    <!-- 정중앙: 인체 안내도 일러스트 -->
+                    <div class="center-illustration">
+                        🧍 <!-- 추후 실제 인체 이미지 <img>로 교체 -->
+                    </div>
+                    
+                    <!-- 60도 간격으로 궤도에 배치될 퀘스트들 -->
+                    <a href="quest1.html" class="quest-bubble q1">1. 영양소</a>
+                    <a href="quest2.html" class="quest-bubble q2">2. 소화</a>
+                    <a href="quest3.html" class="quest-bubble q3">3. 순환</a>
+                    <a href="quest4.html" class="quest-bubble q4">4. 호흡</a>
+                    <a href="quest5.html" class="quest-bubble q5">5. 배설</a>
+                    <a href="quest6.html" class="quest-bubble q6">6. 종합</a>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- 오른쪽: 보상 상자 영역 -->
+        <aside class="card reward-card">
+            <div class="reward-header">
+                <h2 class="card-title">나의 컬렉션</h2>
+                <div class="ticket-badge">
+                    티켓 <span id="reward-count" class="count-highlight">0</span>
+                </div>
+            </div>
+            
+            <!-- 범용 보상 엔진과 연결되는 메인 뽑기 버튼 -->
+            <button id="btn-claim-reward" class="btn-primary" disabled>보상 상자 열기 🎁</button>
+            
+            <!-- 획득한 보상이 들어갈 그리드 영역 -->
+            <div id="reward-area" class="reward-grid">
+                <!-- rewards.js가 이곳에 보상 슬롯을 동적으로 생성합니다 -->
+            </div>
+        </aside>
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/rewards.js"></script>
+    <script>
+        // 초기화 버튼 이벤트 (교사 테스트 및 학생 재시작 용도)
+        document.getElementById('btn-reset').addEventListener('click', () => {
+            if(confirm("모든 기록을 지우고 처음부터 다시 시작할까요?")) {
+                if(window.UniversalReward) window.UniversalReward.reset();
+                alert("기록이 깔끔하게 비워졌습니다.");
+            }
+        });
+    </script>
+</body>
+</html>
